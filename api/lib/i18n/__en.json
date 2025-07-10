@@ -1,0 +1,9 @@
+{
+  "not found": "not found",
+  "login failed": "login failed",
+  "user is not active": "user is not active",
+  "one of email, phone, username required": "one of email, phone, username required",
+  "password required": "password required",
+  "session language has been successfully changed":"session language has been successfully changed",
+  "session closed successfully":"session closed successfully"
+}

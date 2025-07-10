@@ -1,0 +1,9 @@
+{
+  "not found": "no encontrado",
+  "login failed": "inicio de sesión fallido",
+  "user is not active": "el usuario no está activo",
+  "one of email, phone, username required": "se requiere uno de los siguientes: email, teléfono, nombre de usuario",
+  "password required": "se requiere contraseña",
+  "session language has been successfully changed": "se ha cambiado el idioma de la sesión correctamente",
+  "session closed successfully": "sesión cerrada correctamente"
+}

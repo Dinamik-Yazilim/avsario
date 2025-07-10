@@ -1,0 +1,9 @@
+{
+  "not found": "не найдено",
+  "login failed": "ошибка входа",
+  "user is not active": "пользователь неактивен",
+  "one of email, phone, username required": "необходимо указать одно из: электронная почта, телефон или имя пользователя",
+  "password required": "требуется пароль",
+  "session language has been successfully changed": "язык сессии успешно изменен",
+  "session closed successfully": "сессия успешно закрыта"
+}

@@ -1,0 +1,9 @@
+{
+  "not found": "tapılmadı",
+  "login failed": "daxil olma uğursuz oldu",
+  "user is not active": "istifadəçi aktiv deyil",
+  "one of email, phone, username required": "email, telefon və ya istifadəçi adından biri tələb olunur",
+  "password required": "şifrə tələb olunur",
+  "session language has been successfully changed": "sessiya dil uğurla dəyişdirildi",
+  "session closed successfully": "sessiya uğurla bağlandı"
+}

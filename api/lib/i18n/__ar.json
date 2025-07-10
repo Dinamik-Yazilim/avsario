@@ -1,0 +1,9 @@
+{
+  "not found": "غير موجود",
+  "login failed": "فشل تسجيل الدخول",
+  "user is not active": "المستخدم غير نشط",
+  "one of email, phone, username required": "مطلوب أحد البريد الإلكتروني أو رقم الهاتف أو اسم المستخدم",
+  "password required": "كلمة المرور مطلوبة",
+  "session language has been successfully changed": "تم تغيير لغة الجلسة بنجاح",
+  "session closed successfully": "تم إغلاق الجلسة بنجاح"
+}

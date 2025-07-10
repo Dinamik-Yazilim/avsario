@@ -1,0 +1,9 @@
+{
+  "not found": "未找到",
+  "login failed": "登录失败",
+  "user is not active": "用户未激活",
+  "one of email, phone, username required": "电子邮件、电话号码或用户名之一是必需的",
+  "password required": "密码是必需的",
+  "session language has been successfully changed": "会话语言已成功更改",
+  "session closed successfully": "会话已成功关闭"
+}
