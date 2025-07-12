@@ -3,7 +3,7 @@ const collectionName = path.basename(__filename, '.collection.js')
 module.exports = function (dbModel) {
   let schema = mongoose.Schema(
     {
-      organization: { type: ObjectId, ref: 'organizations', index: true },
+      organization: { type: ObjectId, ref: 'organizations', default: null, index: true },
       username: { type: String, default: null, index: true },
       authCode: { type: String, default: '', index: true },
       authCodeExpire: { type: Date, default: Date.now, index: true },

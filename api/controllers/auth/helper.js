@@ -34,7 +34,7 @@ exports.saveSession = async function (organizationDoc, memberDoc, req, loginProv
 				oldDbId = dbList[0]._id
 			}
 			let sessionDoc = new db.sessions({
-				organization: organizationDoc._id,
+				organization: organizationDoc && organizationDoc._id || null,
 				member: memberDoc._id,
 				loginProvider: loginProvider,
 				role: memberDoc.role,
@@ -53,7 +53,7 @@ exports.saveSession = async function (organizationDoc, memberDoc, req, loginProv
 				.save()
 				.then(async (newDoc) => {
 					let obj = {
-						token: 'DINAMIKUP_' + auth.sign({ sessionId: newDoc._id.toString() }),
+						token: 'AVSARIO_' + auth.sign({ sessionId: newDoc._id.toString() }),
 						db: newDoc.db,
 						lang: newDoc.lang,
 						user: memberDoc.toJSON(),
@@ -68,3 +68,5 @@ exports.saveSession = async function (organizationDoc, memberDoc, req, loginProv
 
 	})
 }
+
+

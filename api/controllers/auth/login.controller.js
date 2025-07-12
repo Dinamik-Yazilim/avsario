@@ -9,10 +9,10 @@ module.exports = (req) =>
       let email = null
       let phoneNumber = null
       let username = req.getValue('username')
-      if (!organization) return reject('organization required')
+
       if (!username) return reject('username required')
-      const orgDoc = await db.organizations.findOne({ name: organization })
-      if (!orgDoc) return reject('organization not found')
+
+
 
       username = req.getValue('username')
 
@@ -25,10 +25,20 @@ module.exports = (req) =>
       }
       let password = req.getValue('password')
       let deviceId = req.getValue('deviceId')
+      let orgDoc = null
+      let memberDoc = null
+      if (!organization) {
+        memberDoc = await db.adminMembers.findOne({ username: username, })
+        if (!memberDoc) return reject('admin login failed. admin member not found')
+        if (memberDoc.passive) return reject(`admin account is passive. please contact with administrators`)
+      } else {
+        orgDoc = await db.organizations.findOne({ name: organization })
+        if (!orgDoc) return reject('organization not found')
 
-      const memberDoc = await db.members.findOne({ organization: orgDoc._id, username: username })
-      if (!memberDoc) return reject(`login failed. member not found.`)
-      if (memberDoc.passive) return reject(`account is passive. please contact with administrators`)
+        memberDoc = await db.members.findOne({ organization: orgDoc._id, username: username })
+        if (!memberDoc) return reject(`login failed. member not found.`)
+        if (memberDoc.passive) return reject(`account is passive. please contact with administrators`)
+      }
 
       if (password) {
         if (memberDoc.password == password) {
@@ -41,7 +51,7 @@ module.exports = (req) =>
         // TODO: buraya gelecekte saatte istenebilecek veya gunluk istenebilecek sms/email limiti koyalim
         // TODO: resolve mesaj icindeki authCode bilgileri kaldirilacak.
         let authCodeDoc = await db.authCodes.findOne({
-          organization: orgDoc._id,
+          organization: orgDoc && orgDoc._id || null,
           username: username,
           deviceId: deviceId,
           verified: false,
@@ -52,7 +62,7 @@ module.exports = (req) =>
           return resolve(`authCode already has been sent. authCode:${authCodeDoc.authCode} username:${authCodeDoc.username}`)
         } else {
           authCodeDoc = new db.authCodes({
-            organization: orgDoc._id,
+            organization: orgDoc && orgDoc._id || null,
             deviceId: deviceId,
             username: username,
             authCode: util.randomNumber(120000, 980700),

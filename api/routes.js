@@ -33,6 +33,7 @@ module.exports = (app) => {
 
   authControllers(app, '/api/v1/auth/:func/:param1/:param2/:param3')
   masterControllers(app, '/api/v1/:func/:param1/:param2/:param3')
+  adminControllers(app, '/api/v1/:func/:param1/:param2/:param3')
 
 
   app.use((req, res, next) => {
@@ -81,6 +82,39 @@ function masterControllers(app, route) {
           .then(async (sessionDoc) => {
             const orgDoc = await db.organizations.findOne({ _id: sessionDoc.organization })
             ctl(db, sessionDoc, req, orgDoc)
+              .then((data) => {
+                if (data == undefined) res.json({ success: true })
+                else if (data == null) res.json({ success: true })
+                else {
+                  res.status(200).json({ success: true, data: data })
+                }
+              })
+              .catch(next)
+          })
+          .catch((err) => {
+            res.status(401).json({ success: false, error: err })
+          })
+      } else next()
+    } catch (err) {
+      next(err)
+    }
+
+  })
+}
+
+function adminControllers(app, route) {
+  setRoutes(app, route, (req, res, next) => {
+    try {
+
+      const ctl = getController('/admin', req.params.func)
+      if (ctl) {
+        passport(req)
+          .then(async (sessionDoc) => {
+            const memberDoc = await db.members.findOne({ _id: sessionDoc.member })
+            if (memberDoc.role != 'admin') {
+              return reject(`admin authorization failed`)
+            }
+            ctl(db, sessionDoc, req)
               .then((data) => {
                 if (data == undefined) res.json({ success: true })
                 else if (data == null) res.json({ success: true })
@@ -156,7 +190,7 @@ function passport(req) {
   return new Promise((resolve, reject) => {
     let token = req.getValue('token')
     if (token) {
-      token = token.split('DINAMIKUP_')[1]
+      token = token.split('AVSARIO_')[1]
       auth
         .verify(token)
         .then((decoded) => {
